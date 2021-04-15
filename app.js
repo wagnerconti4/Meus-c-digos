@@ -6,6 +6,9 @@ const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-acce
 const Lista = require('./models/lista')
 const app = express()
 
+//body parser
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
 
 
 //Handlebars
@@ -26,6 +29,21 @@ app.get('/lista',(req,res)=>{
  }).catch((erro)=>{
      console.log('Erro ao tentar gerar a lista de produtos:' + erro)
  })   
+})
+
+app.get('/cadastro',(req,res)=>{
+    res.render('formulario')
+})
+
+app.post('/add',(req,res)=>{
+    Lista.create({
+        descricao: req.body.descricao,
+        valor: req.body.valor
+    }).then(()=>{
+        res.send("Produto criado com sucesso!")
+    }).catch((erro)=>{
+        res.send("Houve algum erro no cadastro: " + erro)
+    })
 })
 
 //Conexão com o servidor
