@@ -11,7 +11,6 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 
-
 //Handlebars
 app.engine('handlebars', expresshandlebars({
     defaultLayout: 'main',
